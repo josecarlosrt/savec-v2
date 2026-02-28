@@ -5,6 +5,12 @@ interface Props {
     projects: CollectionEntry<"projects">[];
 }
 const { projects } = Astro.props;
+
+// Filter projects to only include those that have a galleryImage
+const displayProjects = projects.filter(
+    (project) =>
+        project.data.galleryImage && project.data.galleryImage.trim() !== "",
+);
 ---
 
 <section class="py-24 bg-gray-50 border-t border-gray-200">
@@ -16,35 +22,22 @@ const { projects } = Astro.props;
         >
             Proyectos &mdash;<br /><span class="text-gray-400">Galerías</span>
         </h2>
-        <a
-            href="#"
-            class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-gray-500 transition-colors border-b-2 border-gray-900 hover:border-gray-500 pb-1 w-max"
-        >
-            Ver todo el portafolio <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg
-            >
-        </a>
     </div>
 
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {
-                projects.map((project, index) => (
-                    <a
-                        href="#"
-                        class="group block bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+                displayProjects.map((project, index) => (
+                    <button
+                        type="button"
+                        class="group block bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 text-left w-full cursor-zoom-in"
+                        data-gallery-trigger
+                        data-image={project.data.galleryImage}
                     >
                         <div class="relative overflow-hidden aspect-[16/10]">
                             <div
                                 class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                                style={`background-image: url('${project.data.galleryImage || project.data.coverImage}');`}
+                                style={`background-image: url('${project.data.galleryImage}');`}
                             />
                             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold uppercase px-3 py-1 tracking-widest">
                                 Galería
@@ -59,9 +52,127 @@ const { projects } = Astro.props;
                             </h3>
                             <div class="w-12 h-1 bg-gray-200 group-hover:bg-gray-900 group-hover:w-24 transition-all duration-300" />
                         </div>
-                    </a>
+                    </button>
                 ))
             }
         </div>
     </div>
+
+    <!-- Modal -->
+    <div
+        id="gallery-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm"
+    >
+        <button
+            id="close-modal"
+            class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors p-2"
+            aria-label="Cerrar galería"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><line x1="18" y1="6" x2="6" y2="18"></line><line
+                    x1="6"
+                    y1="6"
+                    x2="18"
+                    y2="18"></line></svg
+            >
+        </button>
+        <img
+            id="modal-image"
+            src=""
+            alt="Vista de la galería"
+            class="max-h-[90vh] max-w-[95vw] md:max-w-[85vw] object-contain scale-95 transition-transform duration-300 shadow-2xl"
+        />
+    </div>
 </section>
+
+<script>
+    function setupGalleryModal() {
+        const triggers = document.querySelectorAll(
+            "[data-gallery-trigger]:not([data-initialized])",
+        );
+        const modal = document.getElementById("gallery-modal");
+        const modalImg = document.getElementById(
+            "modal-image",
+        ) as HTMLImageElement | null;
+        const closeBtn = document.getElementById("close-modal");
+
+        if (!modal || !modalImg || !closeBtn) return;
+
+        const openModal = (imageSrc: string) => {
+            modalImg.src = imageSrc;
+            modal.classList.remove("opacity-0", "pointer-events-none");
+            setTimeout(() => {
+                modalImg.classList.remove("scale-95");
+                modalImg.classList.add("scale-100");
+            }, 10);
+            document.body.style.overflow = "hidden";
+        };
+
+        const closeModal = () => {
+            modal.classList.add("opacity-0", "pointer-events-none");
+            modalImg.classList.remove("scale-100");
+            modalImg.classList.add("scale-95");
+            document.body.style.overflow = "";
+            setTimeout(() => {
+                modalImg.src = "";
+            }, 300);
+        };
+
+        triggers.forEach((trigger) => {
+            trigger.setAttribute("data-initialized", "true");
+            trigger.addEventListener("click", (e) => {
+                e.preventDefault();
+                const imageSrc = trigger.getAttribute("data-image");
+                if (imageSrc) openModal(imageSrc);
+            });
+        });
+
+        if (!closeBtn.hasAttribute("data-initialized")) {
+            closeBtn.setAttribute("data-initialized", "true");
+            closeBtn.addEventListener("click", closeModal);
+        }
+
+        if (!modal.hasAttribute("data-initialized")) {
+            modal.setAttribute("data-initialized", "true");
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        if (!document.body.hasAttribute("data-gallery-keydown-initialized")) {
+            document.body.setAttribute(
+                "data-gallery-keydown-initialized",
+                "true",
+            );
+            document.addEventListener("keydown", (e) => {
+                const currentModal = document.getElementById("gallery-modal");
+                if (
+                    e.key === "Escape" &&
+                    currentModal &&
+                    !currentModal.classList.contains("pointer-events-none")
+                ) {
+                    const currentCloseBtn =
+                        document.getElementById("close-modal");
+                    if (currentCloseBtn) currentCloseBtn.click();
+                }
+            });
+        }
+    }
+
+    // Run on initial page load
+    setupGalleryModal();
+
+    // Run on view transitions
+    document.addEventListener("astro:page-load", () => {
+        setupGalleryModal();
+    });
+</script>

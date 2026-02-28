@@ -6,12 +6,14 @@ interface Props {
 }
 
 const { projects } = Astro.props;
+
+const displayProjects = projects.filter(project => project.data.coverImage);
 ---
 
 <section class="relative h-[90vh] w-full overflow-hidden bg-neutral-900" id="hero-carousel">
   <!-- Slides Container -->
   <div class="carousel-inner h-full w-full relative">
-    {projects.map((project, index) => (
+    {displayProjects.map((project, index) => (
       <div 
         class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
         data-index={index}
@@ -39,7 +41,7 @@ const { projects } = Astro.props;
   <!-- Navigation -->
   <div class="absolute bottom-12 right-6 md:right-12 z-30 flex items-center gap-4">
     <div class="flex items-center gap-2 mr-4 carousel-dots">
-      {projects.map((_, index) => (
+      {displayProjects.map((_, index) => (
         <button 
           class={`w-2 h-2 rounded-full transition-all duration-300 ${index === 0 ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/70'}`}
           data-dot-index={index}

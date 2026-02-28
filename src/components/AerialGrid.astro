@@ -8,6 +8,12 @@ interface Props {
 }
 
 const { projects } = Astro.props;
+
+// Filter projects to only include those that have an aerialImage
+const displayProjects = projects.filter(
+    (project) =>
+        project.data.aerialImage && project.data.aerialImage.trim() !== "",
+);
 ---
 
 <section class="py-24 bg-white">
@@ -24,14 +30,16 @@ const { projects } = Astro.props;
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {
-                projects.map((project: Project) => (
-                    <a
-                        href="#"
-                        class="group block relative overflow-hidden aspect-[4/5] bg-gray-100"
+                displayProjects.map((project: Project) => (
+                    <button
+                        type="button"
+                        class="group block relative overflow-hidden aspect-[4/5] bg-gray-100 text-left w-full cursor-zoom-in"
+                        data-aerial-trigger
+                        data-image={project.data.aerialImage}
                     >
                         <div
                             class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                            style={`background-image: url('${project.data.aerialImage || project.data.coverImage}');`}
+                            style={`background-image: url('${project.data.aerialImage}');`}
                         />
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -45,37 +53,153 @@ const { projects } = Astro.props;
                                 {project.data.title}
                             </h3>
                         </div>
-                    </a>
+                    </button>
                 ))
             }
             {/* Fill with empty placeholder spots if fewer than 4 items */}
             {
-                Array.from({ length: Math.max(0, 4 - projects.length) }).map(
-                    () => (
-                        <div class="block relative overflow-hidden aspect-[4/5] bg-gray-100 border border-gray-200 flex flex-col items-center justify-center p-6 text-center">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="32"
-                                height="32"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                class="text-gray-300 mb-4"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                            >
-                                <>
-                                    <path d="M2 12h20" />
-                                    <path d="M12 2v20" />
-                                </>
-                            </svg>
-                            <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">
-                                Próximamente
-                            </span>
-                        </div>
-                    ),
-                )
+                Array.from({
+                    length: Math.max(0, 4 - displayProjects.length),
+                }).map(() => (
+                    <div class="block relative overflow-hidden aspect-[4/5] bg-gray-100 border border-gray-200 flex flex-col items-center justify-center p-6 text-center">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            class="text-gray-300 mb-4"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                        >
+                            <>
+                                <path d="M2 12h20" />
+                                <path d="M12 2v20" />
+                            </>
+                        </svg>
+                        <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">
+                            Próximamente
+                        </span>
+                    </div>
+                ))
             }
         </div>
     </div>
+
+    <!-- Modal for AerialGrid -->
+    <div
+        id="aerial-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm"
+    >
+        <button
+            id="close-aerial-modal"
+            class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors p-2"
+            aria-label="Cerrar vista aérea"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <img
+            id="aerial-modal-image"
+            src=""
+            alt="Vista aérea ampliada"
+            class="max-h-[90vh] max-w-[95vw] md:max-w-[85vw] object-contain scale-95 transition-transform duration-300 shadow-2xl"
+        />
+    </div>
 </section>
+
+<script>
+    function setupAerialModal() {
+        const triggers = document.querySelectorAll(
+            "[data-aerial-trigger]:not([data-initialized])",
+        );
+        const modal = document.getElementById("aerial-modal");
+        const modalImg = document.getElementById(
+            "aerial-modal-image",
+        ) as HTMLImageElement | null;
+        const closeBtn = document.getElementById("close-aerial-modal");
+
+        if (!modal || !modalImg || !closeBtn) return;
+
+        const openModal = (imageSrc: string) => {
+            modalImg.src = imageSrc;
+            modal.classList.remove("opacity-0", "pointer-events-none");
+            setTimeout(() => {
+                modalImg.classList.remove("scale-95");
+                modalImg.classList.add("scale-100");
+            }, 10);
+            document.body.style.overflow = "hidden";
+        };
+
+        const closeModal = () => {
+            modal.classList.add("opacity-0", "pointer-events-none");
+            modalImg.classList.remove("scale-100");
+            modalImg.classList.add("scale-95");
+            document.body.style.overflow = "";
+            setTimeout(() => {
+                modalImg.src = "";
+            }, 300);
+        };
+
+        triggers.forEach((trigger) => {
+            trigger.setAttribute("data-initialized", "true");
+            trigger.addEventListener("click", (e) => {
+                e.preventDefault();
+                const imageSrc = trigger.getAttribute("data-image");
+                if (imageSrc) openModal(imageSrc);
+            });
+        });
+
+        if (!closeBtn.hasAttribute("data-initialized")) {
+            closeBtn.setAttribute("data-initialized", "true");
+            closeBtn.addEventListener("click", closeModal);
+        }
+
+        if (!modal.hasAttribute("data-initialized")) {
+            modal.setAttribute("data-initialized", "true");
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        if (!document.body.hasAttribute("data-aerial-keydown-initialized")) {
+            document.body.setAttribute(
+                "data-aerial-keydown-initialized",
+                "true",
+            );
+            document.addEventListener("keydown", (e) => {
+                const currentModal = document.getElementById("aerial-modal");
+                if (
+                    e.key === "Escape" &&
+                    currentModal &&
+                    !currentModal.classList.contains("pointer-events-none")
+                ) {
+                    const currentCloseBtn =
+                        document.getElementById("close-aerial-modal");
+                    if (currentCloseBtn) currentCloseBtn.click();
+                }
+            });
+        }
+    }
+
+    // Run on initial page load
+    setupAerialModal();
+
+    // Run on view transitions
+    document.addEventListener("astro:page-load", () => {
+        setupAerialModal();
+    });
+</script>
