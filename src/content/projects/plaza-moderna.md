@@ -1,7 +1,7 @@
 ---
 title: "Plaza Moderna"
 status: "ejecutado"
-category: "01 — DISEÑO GENERAL Y CONSTRUCCIÓN"
+category: "02 — DISEÑO GENERAL Y CONSTRUCCIÓN"
 coverImage: "/hero/hero-2.jpg"
 aerialImage: "/aereo/morderna.png"
 galleryImage: "/hero/hero-2.jpg"

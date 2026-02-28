@@ -10,8 +10,18 @@ const services = [
         category: "URBANIZACIONES Y LOTIFICACIONES",
         title: "Urbanizaciones",
     },
-    { index: "03", category: "PLATAFORMAS INDUSTRIALES", title: "Plataformas" },
-    { index: "04", category: "CENTROS COMERCIALES", title: "Comerciales" },
+    {
+        index: "03",
+        category: "PLAZAS COMERCIALES",
+        title: "Urbanizaciones",
+    },
+    {
+        index: "04",
+        category: "CASAS DE HABITACIÓN",
+        title: "Urbanizaciones",
+    },
+    { index: "05", category: "PLATAFORMAS INDUSTRIALES", title: "Plataformas" },
+    { index: "06", category: "CENTROS COMERCIALES", title: "Comerciales" },
 ];
 ---
 
@@ -52,10 +62,10 @@ const services = [
                         class="min-w-[80vw] md:min-w-[400px] flex-shrink-0 snap-center md:snap-start bg-white p-10 border border-gray-200 
                     hover:border-gray-900 transition-colors duration-300 group"
                     >
-                        <div class="text-7xl font-bold text-gray-100 group-hover:text-gray-200 transition-colors mb-8">
+                        <div class="text-7xl font-bold text-red-400 group-hover:text-red-700 transition-colors mb-8">
                             {service.index}
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold uppercase tracking-wide text-gray-900 leading-tight">
+                        <h3 class="text-xl md:text-2xl max-w-[250px] font-bold uppercase tracking-wide text-gray-900 leading-tight">
                             {service.category}
                         </h3>
                         <div class="mt-8 pt-6 border-t border-gray-100"></div>

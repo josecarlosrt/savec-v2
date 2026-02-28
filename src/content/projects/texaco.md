@@ -1,7 +1,7 @@
 ---
 title: "Texaco Los Alamos"
 status: "ejecutado"
-category: "02 — DISEÑO GENERAL Y CONSTRUCCIÓN"
+category: "01 — DISEÑO GENERAL Y CONSTRUCCIÓN"
 coverImage: "/hero/texaco.jpg"
 aerialImage: "/aereo/texaco.png"
 galleryImage: "/hero/texaco.jpg"

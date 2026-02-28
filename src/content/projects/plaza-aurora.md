@@ -1,9 +1,9 @@
 ---
 title: "Plaza Aurora"
-status: "en_ejecucion"
-category: "01 — DISEÑO GENERAL"
-coverImage: "/hero/savec-hero-new-2.jpg"
+status: "ejecutado"
+category: "03 — DISEÑO GENERAL Y CONSTRUCCIÓN"
+coverImage: "/hero/aurora.webp"
 aerialImage: ""
-galleryImage: "/hero/savec-hero-new-2.jpg"
+galleryImage: "/hero/aurora.webp"
 ---
-Plaza Aurora es un proyecto de grande enfocado en diseño general.
+Plaza Aurora es un proyecto de grande enfocado en diseño general y construcción.
