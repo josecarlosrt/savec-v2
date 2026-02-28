@@ -1,0 +1,133 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section class="relative h-[90vh] w-full overflow-hidden bg-neutral-900" id="hero-carousel">
+  <!-- Slides Container -->
+  <div class="carousel-inner h-full w-full relative">
+    {projects.map((project, index) => (
+      <div 
+        class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+        data-index={index}
+      >
+        <div 
+          class="absolute inset-0 bg-cover bg-center transform transition-transform duration-[10000ms] ease-linear scale-100 hover:scale-105"
+          style={`background-image: url('${project.data.coverImage}');`}
+        ></div>
+        <!-- Soft dark gradient for readability -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+        
+        <!-- Content Overlay (Bottom-Left) -->
+        <div class="absolute bottom-12 left-6 md:left-12 max-w-2xl slide-content opacity-0 translate-y-8 transition-all duration-1000 delay-300">
+          <p class="text-white/80 text-sm md:text-base font-medium tracking-[0.2em] uppercase mb-3 border-l-2 border-white pl-4">
+            {project.data.category}
+          </p>
+          <h1 class="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter">
+            {project.data.title}
+          </h1>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Navigation -->
+  <div class="absolute bottom-12 right-6 md:right-12 z-30 flex items-center gap-4">
+    <div class="flex items-center gap-2 mr-4 carousel-dots">
+      {projects.map((_, index) => (
+        <button 
+          class={`w-2 h-2 rounded-full transition-all duration-300 ${index === 0 ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/70'}`}
+          data-dot-index={index}
+          aria-label={`Go to slide ${index + 1}`}
+        ></button>
+      ))}
+    </div>
+    
+    <div class="flex gap-2">
+      <button id="carousel-prev" class="w-12 h-12 flex items-center justify-center rounded-full border border-white/30 text-white hover:bg-white hover:text-black transition-colors" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button id="carousel-next" class="w-12 h-12 flex items-center justify-center rounded-full border border-white/30 text-white hover:bg-white hover:text-black transition-colors" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* slide content active state */
+  .carousel-slide.active .slide-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const carousel = document.getElementById('hero-carousel');
+  if (carousel) {
+    const slides = Array.from(carousel.querySelectorAll('.carousel-slide')) as HTMLElement[];
+    const dots = Array.from(carousel.querySelectorAll('[data-dot-index]')) as HTMLButtonElement[];
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let autoplayInterval: number;
+
+    const updateSlides = (newIndex: number) => {
+      // Remove active from old
+      slides[currentIndex].classList.remove('opacity-100', 'z-10', 'active');
+      slides[currentIndex].classList.add('opacity-0', 'z-0');
+      dots[currentIndex].classList.remove('bg-white', 'w-6');
+      dots[currentIndex].classList.add('bg-white/40', 'w-2');
+
+      // Add active to new
+      currentIndex = newIndex;
+      slides[currentIndex].classList.remove('opacity-0', 'z-0');
+      slides[currentIndex].classList.add('opacity-100', 'z-10', 'active');
+      dots[currentIndex].classList.remove('bg-white/40', 'w-2');
+      dots[currentIndex].classList.add('bg-white', 'w-6');
+    };
+
+    const nextSlide = () => updateSlides((currentIndex + 1) % totalSlides);
+    const prevSlide = () => updateSlides((currentIndex - 1 + totalSlides) % totalSlides);
+
+    const startAutoplay = () => {
+      autoplayInterval = window.setInterval(nextSlide, 5000);
+    };
+
+    const resetAutoplay = () => {
+      clearInterval(autoplayInterval);
+      startAutoplay();
+    };
+
+    if (totalSlides > 0) {
+      // Initialize first slide as active for animations
+      slides[0].classList.add('active');
+      
+      prevBtn?.addEventListener('click', () => {
+        prevSlide();
+        resetAutoplay();
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        nextSlide();
+        resetAutoplay();
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          updateSlides(idx);
+          resetAutoplay();
+        });
+      });
+
+      startAutoplay();
+    }
+  }
+</script>

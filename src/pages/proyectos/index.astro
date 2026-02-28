@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HeroCarousel from "../../components/HeroCarousel.astro";
+import ServicesSlider from "../../components/ServicesSlider.astro";
+import AerialGrid from "../../components/AerialGrid.astro";
+import WorksGallery from "../../components/WorksGallery.astro";
+import LeadGenCTA from "../../components/LeadGenCTA.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+---
+
+<Layout title="Proyectos | Savec">
+    <HeroCarousel projects={projects} />
+    <ServicesSlider />
+    <AerialGrid projects={projects} />
+    <WorksGallery projects={projects} />
+    <LeadGenCTA />
+</Layout>

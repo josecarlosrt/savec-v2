@@ -1,0 +1,81 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Project = CollectionEntry<"projects">;
+
+interface Props {
+    projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 mb-16">
+        <h2
+            class="text-3xl md:text-5xl font-bold uppercase tracking-tight text-gray-900 border-l-4 border-gray-900 pl-4"
+        >
+            Proyectos &mdash;<br /><span class="text-gray-400"
+                >Tomas Aéreas</span
+            >
+        </h2>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {
+                projects.map((project: Project) => (
+                    <a
+                        href="#"
+                        class="group block relative overflow-hidden aspect-[4/5] bg-gray-100"
+                    >
+                        <div
+                            class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                            style={`background-image: url('${project.data.aerialImage || project.data.coverImage}');`}
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+
+                        <div class="absolute bottom-0 left-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="text-xs font-bold tracking-widest text-white/70 uppercase mb-2 block border-b border-white/20 pb-2">
+                                {project.data.status === "ejecutado"
+                                    ? "Ejecutado"
+                                    : "En Ejecución"}
+                            </span>
+                            <h3 class="text-xl font-bold text-white uppercase tracking-wide">
+                                {project.data.title}
+                            </h3>
+                        </div>
+                    </a>
+                ))
+            }
+            {/* Fill with empty placeholder spots if fewer than 4 items */}
+            {
+                Array.from({ length: Math.max(0, 4 - projects.length) }).map(
+                    () => (
+                        <div class="block relative overflow-hidden aspect-[4/5] bg-gray-100 border border-gray-200 flex flex-col items-center justify-center p-6 text-center">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                class="text-gray-300 mb-4"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                            >
+                                <>
+                                    <path d="M2 12h20" />
+                                    <path d="M12 2v20" />
+                                </>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-400 uppercase tracking-widest">
+                                Próximamente
+                            </span>
+                        </div>
+                    ),
+                )
+            }
+        </div>
+    </div>
+</section>

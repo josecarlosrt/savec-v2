@@ -1,0 +1,105 @@
+---
+const services = [
+    {
+        index: "01",
+        category: "OBRAS DE TERRACERÍA / MOVIMIENTO DE TIERRA",
+        title: "Obras de Terracería",
+    },
+    {
+        index: "02",
+        category: "URBANIZACIONES Y LOTIFICACIONES",
+        title: "Urbanizaciones",
+    },
+    { index: "03", category: "PLATAFORMAS INDUSTRIALES", title: "Plataformas" },
+    { index: "04", category: "CENTROS COMERCIALES", title: "Comerciales" },
+];
+---
+
+<section class="py-24 bg-gray-50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-12 flex justify-between items-end">
+        <h2
+            class="text-3xl md:text-5xl font-bold uppercase tracking-tight text-gray-900 border-l-4 border-gray-900 pl-4"
+        >
+            Nuestros<br />Servicios
+        </h2>
+        <span
+            class="text-gray-400 text-sm font-semibold tracking-widest uppercase flex items-center gap-2"
+        >
+            Desliza <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg
+            >
+        </span>
+    </div>
+
+    <div
+        class="relative max-w-7xl mx-auto px-6 cursor-grab active:cursor-grabbing w-full"
+    >
+        <!-- Horizontal draggable slider -->
+        <div
+            id="services-slider"
+            class="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8 pt-4"
+        >
+            {
+                services.map((service) => (
+                    <div
+                        class="min-w-[80vw] md:min-w-[400px] flex-shrink-0 snap-center md:snap-start bg-white p-10 border border-gray-200 
+                    hover:border-gray-900 transition-colors duration-300 group"
+                    >
+                        <div class="text-7xl font-bold text-gray-100 group-hover:text-gray-200 transition-colors mb-8">
+                            {service.index}
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold uppercase tracking-wide text-gray-900 leading-tight">
+                            {service.category}
+                        </h3>
+                        <div class="mt-8 pt-6 border-t border-gray-100">
+                            <span class="text-sm font-medium uppercase tracking-widest group-hover:underline underline-offset-4 cursor-pointer">
+                                Ver proyectos
+                            </span>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    const slider = document.getElementById("services-slider");
+    let isDown = false;
+    let startX: number;
+    let scrollLeft: number;
+
+    if (slider) {
+        slider.addEventListener("mousedown", (e) => {
+            isDown = true;
+            slider.classList.add("active");
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener("mouseleave", () => {
+            isDown = false;
+            slider.classList.remove("active");
+        });
+
+        slider.addEventListener("mouseup", () => {
+            isDown = false;
+            slider.classList.remove("active");
+        });
+
+        slider.addEventListener("mousemove", (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    }
+</script>
