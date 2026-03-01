@@ -1,7 +1,7 @@
 ---
 title: "Plaza Aurora"
 status: "ejecutado"
-category: "03 — DISEÑO GENERAL Y CONSTRUCCIÓN"
+category: "02 — DISEÑO GENERAL Y CONSTRUCCIÓN"
 coverImage: "/hero/aurora.webp"
 aerialImage: ""
 galleryImage: "/hero/aurora.webp"
