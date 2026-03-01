@@ -3,123 +3,90 @@ import Layout from "../layouts/Layout.astro";
 import LeadGenCTA from "../components/LeadGenCTA.astro";
 ---
 
-<Layout title="Acerca de SAVEC Ingeniería">
-    <div class="pt-40 md:pt-48 pb-24 bg-gray-50 relative">
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <!-- Header Section -->
-            <div class="text-center mb-16 md:mb-24">
+<Layout
+    title="Acerca de SAVEC Ingeniería"
+    description="Conoce la historia, especialización y compromiso detrás de SAVEC Ingeniería. Nuestro enfoque en infraestructura, urbanización y calidad."
+    image="/about.webp"
+>
+    <!-- Hero -->
+    <section class="bg-neutral-100 pt-32 pb-16 md:pt-48 md:pb-32 px-6">
+        <div
+            class="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20"
+        >
+            <!-- Left: Huge Title with generous spacing -->
+            <div class="w-full md:w-5/12 text-center md:text-left">
                 <h1
-                    class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900"
+                    class="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter text-gray-900 leading-[1.1]"
                 >
-                    Acerca de SAVEC Ingeniería
+                    Acerca de<br /> SAVEC
                 </h1>
-                <div class="w-24 h-1 bg-red-600 mx-auto mt-8"></div>
             </div>
 
-            <!-- Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 xl:gap-12">
-                <!-- Card 1 -->
+            <!-- Right: Beautiful feature image -->
+            <div class="w-full md:w-7/12">
                 <div
-                    class="bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col group border border-gray-100"
+                    class="aspect-[4/3] w-full relative overflow-hidden shadow-xl border border-white/20"
                 >
-                    <div
-                        class="h-64 overflow-hidden relative border-b border-gray-100"
-                    >
-                        <img
-                            src="/hero/savec-hero-new-2.jpg"
-                            alt="Sobre Nosotros"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                    </div>
-                    <div class="p-8 md:p-10 flex-grow">
-                        <h2
-                            class="text-base font-bold text-gray-900 mb-6 uppercase tracking-widest text-center md:text-left"
-                        >
-                            Sobre Nosotros
-                        </h2>
-                        <p
-                            class="text-gray-600 leading-relaxed text-sm text-center md:text-left"
-                        >
-                            En SAVEC Ingeniería, nos destacamos en el dinámico
-                            sector de la construcción e ingeniería civil.
-                            Nuestra experiencia abarca una amplia gama de
-                            proyectos, desde urbanizaciones y parques
-                            industriales hasta edificios de varios niveles. Nos
-                            especializamos en diseños urbanísticos que incluyen
-                            topografía digital, movimientos de tierra, sistemas
-                            hidrosanitarios y pavimentaciones.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div
-                    class="bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col group border border-gray-100"
-                >
-                    <div
-                        class="h-64 overflow-hidden relative border-b border-gray-100"
-                    >
-                        <img
-                            src="/hero/aurora.webp"
-                            alt="Especialización y Compromiso"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                    </div>
-                    <div class="p-8 md:p-10 flex-grow">
-                        <h2
-                            class="text-base font-bold text-gray-900 mb-6 uppercase tracking-widest text-center md:text-left"
-                        >
-                            Especialización y Compromiso
-                        </h2>
-                        <p
-                            class="text-gray-600 leading-relaxed text-sm text-center md:text-left"
-                        >
-                            Con un enfoque especializado en ingeniería
-                            estructural, ofrecemos diseños robustos en concreto
-                            reforzado y metal. Nuestra pericia se extiende al
-                            concreto premezclado, gestionando costos operativos,
-                            dosificaciones precisas y rendimientos eficientes.
-                            En obras de pavimentación y pisos industriales,
-                            aplicamos nuestro conocimiento a fondo.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div
-                    class="bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col group border border-gray-100"
-                >
-                    <div
-                        class="h-64 overflow-hidden relative border-b border-gray-100"
-                    >
-                        <img
-                            src="/hero/hero-1.png"
-                            alt="Comprometidos con sus Proyectos"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                    </div>
-                    <div class="p-8 md:p-10 flex-grow">
-                        <h2
-                            class="text-base font-bold text-gray-900 mb-6 uppercase tracking-widest text-center md:text-left"
-                        >
-                            Comprometidos con sus Proyectos
-                        </h2>
-                        <p
-                            class="text-gray-600 leading-relaxed text-sm text-center md:text-left"
-                        >
-                            Hemos explorado minuciosamente proyectos pasados,
-                            confiando en nuestra capacidad para ejecutar con
-                            éxito sus futuros emprendimientos. Estamos listos
-                            para ofrecer asesoría experta que contribuirá al
-                            éxito de sus proyectos. La oportunidad de colaborar
-                            y compartir ideas nos entusiasma, y estamos a su
-                            disposición para atender cualquier inquietud.
-                        </p>
-                    </div>
+                    <img
+                        src="/about.webp"
+                        alt="Equipo de SAVEC trabajando en pavimentación"
+                        class="w-full h-full object-cover"
+                    />
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
+    <!-- Content Story Section -->
+    <section class="bg-white py-20 md:py-32 px-6">
+        <div class="max-w-3xl mx-auto">
+            <div class="prose prose-lg md:prose-xl max-w-none text-gray-800">
+                <!-- Drop Cap Paragraph -->
+                <p
+                    class="first-letter:text-7xl first-letter:font-bold first-letter:text-gray-900 first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8] mb-12"
+                >
+                    En SAVEC Ingeniería, nos destacamos en el dinámico sector de
+                    la construcción e ingeniería civil. Nuestra experiencia
+                    abarca una amplia gama de proyectos, desde urbanizaciones y
+                    parques industriales hasta edificios de varios niveles. Nos
+                    especializamos en diseños urbanísticos que incluyen
+                    topografía digital, movimientos de tierra, sistemas
+                    hidrosanitarios y pavimentaciones.
+                </p>
+
+                <!-- Second Paragraph -->
+                <h2
+                    class="text-3xl font-bold tracking-tight text-gray-900 mt-16 mb-6"
+                >
+                    Especialización y Compromiso
+                </h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Con un enfoque especializado en ingeniería estructural,
+                    ofrecemos diseños robustos en concreto reforzado y metal.
+                    Nuestra pericia se extiende al concreto premezclado,
+                    gestionando costos operativos, dosificaciones precisas y
+                    rendimientos eficientes. En obras de pavimentación y pisos
+                    industriales, aplicamos nuestro conocimiento a fondo.
+                </p>
+
+                <!-- Third Paragraph -->
+                <h2
+                    class="text-3xl font-bold tracking-tight text-gray-900 mt-16 mb-6"
+                >
+                    Comprometidos con sus Proyectos
+                </h2>
+                <p class="text-gray-700 leading-relaxed mb-20">
+                    Hemos explorado minuciosamente proyectos pasados, confiando
+                    en nuestra capacidad para ejecutar con éxito sus futuros
+                    emprendimientos. Estamos listos para ofrecer asesoría
+                    experta que contribuirá al éxito de sus proyectos. La
+                    oportunidad de colaborar y compartir ideas nos entusiasma, y
+                    estamos a su disposición para atender cualquier inquietud.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
     <LeadGenCTA />
 </Layout>

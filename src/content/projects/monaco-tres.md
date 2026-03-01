@@ -1,7 +1,7 @@
 ---
 title: "Residencial Monaco"
 status: "en_ejecucion"
-category: "04 — Modelo 3 Diseño General"
+category: "Modelo 3 Diseño General"
 coverImage: "/hero/monaco-hero-3.jpeg"
 aerialImage: ""
 galleryImage: "/hero/monaco-hero-3.jpeg"
