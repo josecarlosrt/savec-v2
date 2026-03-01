@@ -53,7 +53,10 @@
                 >
             </a>
             <!-- Mobile menu button -->
-            <button class="md:hidden text-neutral-800 focus:outline-none">
+            <button
+                id="mobile-menu-btn"
+                class="md:hidden text-neutral-800 focus:outline-none"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -64,14 +67,65 @@
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    ><line x1="4" x2="20" y1="12" y2="12"></line><line
-                        x1="4"
-                        x2="20"
-                        y1="6"
-                        y2="6"></line><line x1="4" x2="20" y1="18" y2="18"
-                    ></line></svg
+                    class="menu-icon"
                 >
+                    <line x1="4" x2="20" y1="12" y2="12"></line>
+                    <line x1="4" x2="20" y1="6" y2="6"></line>
+                    <line x1="4" x2="20" y1="18" y2="18"></line>
+                </svg>
             </button>
         </div>
     </div>
 </header>
+
+<!-- Mobile Navigation Menu Dropdown -->
+<div
+    id="mobile-menu"
+    class="fixed inset-0 z-40 bg-white transform translate-x-full transition-transform duration-300 md:hidden pt-24 px-6"
+>
+    <nav class="flex flex-col gap-6 text-center">
+        <a
+            href="/acerca"
+            class="text-2xl text-neutral-800 uppercase font-bold hover:text-accent transition-colors"
+            >Acerca</a
+        >
+        <a
+            href="/contacto"
+            class="text-2xl text-neutral-800 uppercase font-bold hover:text-accent transition-colors"
+            >Contacto</a
+        >
+    </nav>
+</div>
+
+<script>
+    function setupMobileMenu() {
+        const btn = document.getElementById("mobile-menu-btn");
+        const menu = document.getElementById("mobile-menu");
+
+        if (!btn || !menu) return;
+
+        // Clean up old listeners to prevent duplicates during view transitions
+        const newBtn = btn.cloneNode(true) as HTMLElement;
+        if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
+
+        let isOpen = false;
+
+        newBtn.addEventListener("click", () => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                menu.classList.remove("translate-x-full");
+                menu.classList.add("translate-x-0");
+                document.body.style.overflow = "hidden";
+            } else {
+                menu.classList.remove("translate-x-0");
+                menu.classList.add("translate-x-full");
+                document.body.style.overflow = "";
+            }
+        });
+    }
+
+    setupMobileMenu();
+    document.addEventListener("astro:page-load", () => {
+        setupMobileMenu();
+    });
+</script>
