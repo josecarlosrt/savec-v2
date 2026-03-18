@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Mensaje Enviado | Savec Ingeniería"
+    description="Gracias por tu mensaje. Nos pondremos en contacto contigo pronto."
+>
+    <div class="mt-20 pt-20 md:pt-32 pb-24 bg-white relative min-h-[60vh] flex flex-col justify-center">
+        <div class="max-w-3xl mx-auto px-6 relative z-10 text-center">
+            <!-- Check Icon -->
+            <div class="mb-8 flex justify-center items-center text-[#ff1a3c]">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="64"
+                    height="64"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path
+                        d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
+                    ></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
+                ¡Gracias por contactarnos!
+            </h1>
+            
+            <p class="text-lg text-gray-600 mb-12">
+                Hemos recibido tu mensaje correctamente. Nuestro equipo revisará la información y se pondrá en contacto contigo a la brevedad posible.
+            </p>
+
+            <a
+                href="/"
+                class="inline-block bg-black text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors outline-none"
+            >
+                Volver al Inicio
+            </a>
+        </div>
+    </div>
+</Layout>
