@@ -1,8 +1,8 @@
 ---
-title: "Condominios Serenity"
+title: "Serenity Condominios"
 status: "en_ejecucion"
-category: "DISEÑO GENERAL"
-coverImage: ""
+category: "DISEÑO GENERAL Y CONSTRUCCIÓN"
+coverImage: "/hero/serenity-hero.webp"
 aerialImage: ""
 galleryImage: "/gallery/serenity.webp"
 ---
