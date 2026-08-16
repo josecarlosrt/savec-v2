@@ -1,7 +1,7 @@
 ---
 title: "Townhouse Altiplano"
 status: "en_ejecucion"
-category: "DISEÑO GENERAL"
+category: "DISEÑO GENERAL Y CONSTRUCCIÓN"
 coverImage: "/hero/altiplano.webp"
 aerialImage: ""
 galleryImage: "/hero/altiplano.webp"
