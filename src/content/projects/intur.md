@@ -1,9 +1,8 @@
 ---
 title: "Locales Comerciales Grupo Intur"
 status: "ejecutado"
-category: ""
+category: "Diseño General y Construcción"
 coverImage: "/gallery/intur-cover.webp"
 aerialImage: "/gallery/intur.webp"
 galleryImage: ""
 ---
-Toma Area de Plaza Comercial Calpules
