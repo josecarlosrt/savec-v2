@@ -1,7 +1,7 @@
 ---
 title: "Plaza Diamond"
 status: "en_ejecucion"
-category: "DISEÑO GENERAL Y CONSTRUCCIÓN"
+category: "DISEÑO GENERAL"
 coverImage: "/hero/diamond-plaza.webp"
 aerialImage: ""
 galleryImage: "/hero/diamond-plaza.webp"
