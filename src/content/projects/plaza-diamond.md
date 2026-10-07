@@ -1,9 +1,9 @@
 ---
-title: "Plaza Diamond"
+title: "Bodegas ABS"
 status: "en_ejecucion"
-category: "DISEÑO GENERAL"
-coverImage: "/hero/diamond-plaza.webp"
+category: "DISEÑO GENERAL Y CONSTRUCCIÓN"
+coverImage: "/hero/Bodegas_ABS.jpeg"
 aerialImage: ""
-galleryImage: "/hero/diamond-plaza.webp"
+galleryImage: "/hero/Bodegas_ABS.jpeg"
 ---
-Plaza Diamond es un proyecto de grande enfocado en diseño general.
+Bodegas ABS es un proyecto enfocado en diseño general y construcción.
