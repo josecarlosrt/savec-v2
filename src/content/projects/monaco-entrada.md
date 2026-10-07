@@ -1,5 +1,5 @@
 ---
-title: "Entrada Residencial Monaco"
+title: "Entrada Res. Monaco"
 status: "en_ejecucion"
 category: "Diseño General"
 coverImage: "/hero/portal.webp"
